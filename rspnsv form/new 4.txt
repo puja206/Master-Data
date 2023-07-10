@@ -1,0 +1,27 @@
+<?php
+
+$FirstName = $_POST('Full Name');
+$Email= $_POST('Email');
+$Password = $_POST('Password');
+$BloodGroup = $_POST('BloodGroup');
+$UserID = $_POST('UserID');
+$PhoneNumber = $_POST('Phone Number');
+$ConfirmPassword = $_POST('Confirm Password');
+$Address= $_POST('Address');
+$Gender= $_POST('Gender');
+    // Create Connection
+    $conn = new mysqli ('localhost', 'root', '', 'test' );
+    if($conn->connect_error){
+    die('Connection Failed :'.$conn->connect_error);
+    }else{
+        $stmt = $conn->prepare("insert into registration(FullName, Email, Password, ConfirmPassword, Gender, PhoneNumber, BloodGroup)
+        Values(?,?,?,?,?,?,?,?,?)");
+    
+    $stmt->bind_param("sssssi", $FullName, $Email, $BloodGroup,$Address, $Password, $ConfirmPassword,);
+    $stmt->execute();
+    echo "Registration Successfully";
+    $stmt->close();
+    $conn->close();
+    }  
+
+?>
